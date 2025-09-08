@@ -1,11 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <string>
 
 using namespace std;
 
-// TODO: Write the Book struct here
-// struct Book { ... };
+// Define the Book struct with the required fields
+struct Book {
+    string title;
+    string author;
+    int year;
+    int pages;
+    string isbn;
+};
 
 void print_book(int index, const char* title, const char* author, int year, int pages, const char* isbn) {
     cout << "Book[" << index << "]: "
@@ -30,16 +37,26 @@ int main(int argc, char* argv[]) {
 
     int num_books;
     input >> num_books;
-    input.ignore(); // skip newline
+    input.ignore(); // skip newline after reading number of books
 
-    // TODO: Create array of Book
-    // Book books[10];
+    // Create an array of Book to store the books
+    Book books[num_books];
 
-    // TODO: Read books from input
-    // for (int i = 0; i < num_books; i++) { ... }
+    // Read books data from the input file
+    for (int i = 0; i < num_books; ++i) {
+        // Read the book data from the file and populate the books array
+        getline(input, books[i].title);
+        getline(input, books[i].author);
+        input >> books[i].year;
+        input >> books[i].pages;
+        input.ignore(); // skip the newline after reading pages
+        getline(input, books[i].isbn);
+    }
 
-    // TODO: Print books using print_book
-    // for (int i = 0; i < num_books; i++) { ... }
+    // Print the books using the print_book function
+    for (int i = 0; i < num_books; ++i) {
+        print_book(i, books[i].title.c_str(), books[i].author.c_str(), books[i].year, books[i].pages, books[i].isbn.c_str());
+    }
 
     return 0;
 }
